@@ -29,8 +29,6 @@
     })
 
 
-  # Creative
-    kdePackages.kdenlive
     texstudio
 
     # Fonts
