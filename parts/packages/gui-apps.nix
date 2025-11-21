@@ -16,9 +16,5 @@
     kdePackages.kdenlive
     texstudio
 
-    # OBS with pipewire support
-    (obs-studio.override {
-      pipewireSupport = true;
-    })
   ];
 }

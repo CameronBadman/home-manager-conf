@@ -24,6 +24,10 @@
     xdg-desktop-portal-hyprland
     xdg-desktop-portal-gtk
 
+    (obs-studio.override {
+      pipewireSupport = true;
+    })
+
     # Fonts
     pkgs.nerd-fonts.fira-code
     pkgs.nerd-fonts.jetbrains-mono
