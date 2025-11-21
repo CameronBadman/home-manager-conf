@@ -12,9 +12,5 @@
     # Tools
     google-chrome
 
-    # Creative
-    kdePackages.kdenlive
-    texstudio
-
   ];
 }

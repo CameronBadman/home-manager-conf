@@ -28,6 +28,11 @@
       pipewireSupport = true;
     })
 
+
+  # Creative
+    kdePackages.kdenlive
+    texstudio
+
     # Fonts
     pkgs.nerd-fonts.fira-code
     pkgs.nerd-fonts.jetbrains-mono
