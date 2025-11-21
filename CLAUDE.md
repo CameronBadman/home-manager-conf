@@ -58,7 +58,8 @@ parts/
 │   ├── git.nix           # Git + SSH + gh CLI
 │   ├── tmux.nix          # Tmux configuration
 │   ├── firefox.nix       # Firefox with custom search engines
-│   └── kitty.nix         # Kitty terminal
+│   ├── kitty.nix         # Kitty terminal
+│   └── nvim.nix          # Neovim from external flake (cross-platform)
 ├── packages/             # Package groups
 │   ├── common.nix        # CLI tools (cross-platform)
 │   ├── gui-apps.nix      # GUI applications (cross-platform)
@@ -75,13 +76,14 @@ parts/
         └── ...
 ```
 
-### Exported Modules (flake.nix:36-53)
+### Exported Modules (flake.nix:36-54)
 
 All modules under `parts/` are exported via `flake.homeModules` and can be imported by other flakes:
 
 ```nix
 # In another flake:
 inputs.cameron-home.homeModules.shell
+inputs.cameron-home.homeModules.nvim
 inputs.cameron-home.homeModules.packages-common
 inputs.cameron-home.homeModules.packages-gaming
 inputs.cameron-home.homeModules.hyprland  # Linux only
@@ -111,12 +113,12 @@ For macOS configurations, simply omit Linux-specific modules (hyprland, packages
 
 ### Important Configuration Details
 
-- **Neovim**: Managed by external flake at `github:CameronBadman/Nvim-flake`, included as package with extra dependencies
+- **Neovim**: Managed by external flake at `github:CameronBadman/Nvim-flake`, cross-platform with system detection (`parts/home-modules/nvim.nix`)
 - **Shell**: Bash with vi-mode enabled, custom prompt with nix-shell indicator
 - **Git**: Configured for user "Cameron Badman" with rebase on pull, auto-setup remote on push
-- **Audio**: Pipewire configured with low-latency settings (1024 quantum, 48kHz)
-- **Portal**: Uses hyprland portal for screencasting/screenshots, gtk portal as fallback
-- **Allow Unfree**: Set in `modules/packages.nix:3` to enable proprietary packages
+- **Audio**: Pipewire configured with low-latency settings (1024 quantum, 48kHz) - Linux only
+- **Portal**: Uses hyprland portal for screencasting/screenshots, gtk portal as fallback - Linux only
+- **Allow Unfree**: Set in `parts/packages/linux-only.nix:3` to enable proprietary packages
 
 ## Working with This Configuration
 
@@ -148,6 +150,7 @@ cameron-darwin = home-manager.lib.homeManagerConfiguration {
     self.homeModules.tmux
     self.homeModules.firefox
     self.homeModules.kitty
+    self.homeModules.nvim
     self.homeModules.packages-common
     self.homeModules.packages-gui
     self.homeModules.packages-gaming

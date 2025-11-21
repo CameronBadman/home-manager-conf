@@ -40,6 +40,7 @@
           tmux = ./parts/home-modules/tmux.nix;
           firefox = ./parts/home-modules/firefox.nix;
           kitty = ./parts/home-modules/kitty.nix;
+          nvim = ./parts/home-modules/nvim.nix;
 
           # Package groups
           packages-common = ./parts/packages/common.nix;
@@ -61,13 +62,6 @@
             modules = [
               { _module.args = { inherit inputs; }; }
 
-              # Neovim from external flake
-              ({ pkgs, ... }: {
-                home.packages = [
-                  nvim-flake.packages.x86_64-linux.default
-                ] ++ (nvim-flake.extraPackages pkgs);
-              })
-
               # NUR overlay
               {
                 nixpkgs.overlays = [ nur.overlays.default ];
@@ -87,6 +81,7 @@
               self.homeModules.tmux
               self.homeModules.firefox
               self.homeModules.kitty
+              self.homeModules.nvim
               self.homeModules.packages-common
               self.homeModules.packages-gui
               self.homeModules.packages-gaming
