@@ -1,19 +1,21 @@
-# modules/git.nix
 { config, lib, pkgs, ... }:
 {
   programs.git = {
     enable = true;
-    userName = "Cameron Badman";
-    userEmail = "cbadwork@gmail.com";
-    
-    extraConfig = {
+
+    settings = {
+      user = {
+        name = "Cameron Badman";
+        email = "cbadwork@gmail.com";
+      };
+
       init.defaultBranch = "main";
       pull.rebase = true;
       push.autoSetupRemote = true;
       core.editor = "nvim";
-      
+
       credential.helper = "store";
-      
+
       color = {
         ui = "auto";
         branch = "auto";
@@ -21,12 +23,11 @@
         status = "auto";
       };
     };
-    
   };
-  
+
   programs.ssh = {
     enable = true;
-    
+
     extraConfig = ''
       Host github.com
         HostName github.com
@@ -35,7 +36,7 @@
         AddKeysToAgent yes
     '';
   };
-  
+
   home.packages = with pkgs; [
     gh
   ];
