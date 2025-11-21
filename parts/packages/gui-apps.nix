@@ -2,7 +2,6 @@
 {
   home.packages = with pkgs; [
     # Communication
-    legcord
     vesktop
 
     # Media
