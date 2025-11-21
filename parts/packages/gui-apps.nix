@@ -16,9 +16,6 @@
     kdePackages.kdenlive
     texstudio
 
-    # Gaming
-    prismlauncher
-
     # OBS with pipewire support
     (obs-studio.override {
       pipewireSupport = true;

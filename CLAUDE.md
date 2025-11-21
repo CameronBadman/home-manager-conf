@@ -58,14 +58,15 @@ parts/
 │   ├── git.nix           # Git + SSH + gh CLI
 │   ├── tmux.nix          # Tmux configuration
 │   ├── firefox.nix       # Firefox with custom search engines
-│   ├── kitty.nix         # Kitty terminal
-│   └── mic.nix           # Microphone config
+│   └── kitty.nix         # Kitty terminal
 ├── packages/             # Package groups
 │   ├── common.nix        # CLI tools (cross-platform)
 │   ├── gui-apps.nix      # GUI applications (cross-platform)
+│   ├── gaming.nix        # Gaming packages (cross-platform)
 │   └── linux-only.nix    # Linux-specific packages & configs
-└── linux/
-    └── hyprland/         # Full Hyprland setup (Linux only)
+└── linux/                # Linux-only modules
+    ├── mic.nix           # Microphone/pipewire config
+    └── hyprland/         # Full Hyprland setup
         ├── default.nix
         ├── binds.nix
         ├── appearance.nix
@@ -74,7 +75,7 @@ parts/
         └── ...
 ```
 
-### Exported Modules (flake.nix:36-51)
+### Exported Modules (flake.nix:36-53)
 
 All modules under `parts/` are exported via `flake.homeModules` and can be imported by other flakes:
 
@@ -82,7 +83,9 @@ All modules under `parts/` are exported via `flake.homeModules` and can be impor
 # In another flake:
 inputs.cameron-home.homeModules.shell
 inputs.cameron-home.homeModules.packages-common
+inputs.cameron-home.homeModules.packages-gaming
 inputs.cameron-home.homeModules.hyprland  # Linux only
+inputs.cameron-home.homeModules.mic       # Linux only
 ```
 
 ### Platform Support
@@ -123,8 +126,9 @@ For macOS configurations, simply omit Linux-specific modules (hyprland, packages
 2. **Packages**:
    - CLI tools → `parts/packages/common.nix`
    - GUI apps → `parts/packages/gui-apps.nix`
+   - Gaming → `parts/packages/gaming.nix`
    - Linux-only → `parts/packages/linux-only.nix`
-3. **Linux-specific** (Hyprland keybinds, waybar, etc) → `parts/linux/hyprland/`
+3. **Linux-specific** (Hyprland keybinds, waybar, pipewire, etc) → `parts/linux/`
 
 ### Creating a macOS Configuration
 
@@ -146,7 +150,8 @@ cameron-darwin = home-manager.lib.homeManagerConfiguration {
     self.homeModules.kitty
     self.homeModules.packages-common
     self.homeModules.packages-gui
-    # Note: skip hyprland and packages-linux
+    self.homeModules.packages-gaming
+    # Note: skip hyprland, packages-linux, and mic (Linux-only)
   ];
 };
 ```

@@ -40,15 +40,16 @@
           tmux = ./parts/home-modules/tmux.nix;
           firefox = ./parts/home-modules/firefox.nix;
           kitty = ./parts/home-modules/kitty.nix;
-          mic = ./parts/home-modules/mic.nix;
 
           # Package groups
           packages-common = ./parts/packages/common.nix;
           packages-gui = ./parts/packages/gui-apps.nix;
+          packages-gaming = ./parts/packages/gaming.nix;
           packages-linux = ./parts/packages/linux-only.nix;
 
           # Linux-specific
           hyprland = ./parts/linux/hyprland;
+          mic = ./parts/linux/mic.nix;
         };
 
         # Home configurations
@@ -86,11 +87,12 @@
               self.homeModules.tmux
               self.homeModules.firefox
               self.homeModules.kitty
-              self.homeModules.mic
               self.homeModules.packages-common
               self.homeModules.packages-gui
+              self.homeModules.packages-gaming
               self.homeModules.packages-linux
               self.homeModules.hyprland
+              self.homeModules.mic
             ];
           };
         };
